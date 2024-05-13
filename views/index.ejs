@@ -1,0 +1,29 @@
+<div class="author">
+    <h1 class="author__heading">
+        Hi, I am Ananya.
+    </h1>
+    <p class="author__body">
+        Web Developer and Content Creator
+    </p>
+</div>
+
+<img src="/img/shadowgirl.png" alt="nanlla"class="shadow-girl"width="900"height="518">
+<section class="articles">
+    <h2 class="articles__heading">Latest Posts</h2>
+    <ul class="articles-ul">
+        <% data.forEach(post => { %>
+         
+            <li>
+                <a href=/post/<%= post._id %> style="text-decoration: none;">
+                    <span><%= post.title %></span>
+                    <br>
+                    <span class="articles-list__date"><%= post.createdAt.toDateString() %></span>
+                </a>
+            </li>
+            <% }) %>
+        </ul>
+
+        <% if (nextPage !== null) { %>
+            <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
+            <% } %>
+</section>
