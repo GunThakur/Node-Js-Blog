@@ -11,13 +11,13 @@ router.get('/post/:id',async(req,res)=>{
   try{
     slug = req.params.id
 
+    const currentRoute = `/post/${slug}`
     const data = await Post.findById({_id:slug})
     const locals = {
       title:data.title,
       desc:data.body,
-      currentRoute: `/post/${slug}`
     }
-    res.render('posts',{locals})
+    res.render('posts',{locals,currentRoute})
   }catch(err){
     console.log(err)
   }
@@ -36,9 +36,10 @@ router.get('', async (req, res) => {
   try {
     const locals = {
       title: "NodeJs Blog",
-      description: "Simple Blog created with NodeJs, Express & MongoDb."
-    }
+      description: "Simple Blog created with NodeJs, Express & MongoDb.",
 
+    }
+    const currentRoute =  '/'
     let perPage = 3;
     let page = req.query.page || 1;
 
@@ -56,7 +57,7 @@ router.get('', async (req, res) => {
       data,
       current: page,
       nextPage: hasNextPage ? nextPage : null,
-      currentRoute: '/'
+      currentRoute
     });
 
   } catch (error) {
@@ -95,8 +96,9 @@ router.get('', async (req, res) => {
 
 
 router.get('/about',(req,res)=>{
+  const currentRoute = '/about'
   res.render('about',{
-    currentRoute: '/about'
+    currentRoute 
   })
 })
 module.exports = router;
