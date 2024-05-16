@@ -74,6 +74,7 @@ router.get('', async (req, res) => {
                 title: "Search",
                 description: "Simple Blog created by express,NodeJS and MongoDB"
             }
+            const currentRoute = '/search'
             let searchTerm = req.body.searchTerm
             let NoSpecialChar = searchTerm.replace(/[^a-zA-Z0-9]/g,'')
             const data = await Post.find({
@@ -82,10 +83,12 @@ router.get('', async (req, res) => {
                 {body:{$regex: new RegExp(NoSpecialChar,'i')}}
               ]
             })
-
+            if (data==''){
+              res.send('<h1 style="font-family:algerian;text-align:center;">No results found</h1>')
+            }
 
             // console.log(searchTerm)
-            res.render('search', { locals,data});
+            res.render('search', { locals,data,currentRoute});
         
           } catch (error) {
             console.log(error);
